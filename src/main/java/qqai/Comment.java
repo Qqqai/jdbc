@@ -13,7 +13,13 @@ public class Comment {
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
 
-
+    /**
+     * 删除
+     *
+     * @param sql    基本sql
+     * @param params 参数集
+     * @throws SQLException 删除失败
+     */
     public static void delete(String sql, HashMap<String, Object> params) throws SQLException {
         StringBuilder sqlBuilder = new StringBuilder(sql);
         sqlBuilder.append(" where");
