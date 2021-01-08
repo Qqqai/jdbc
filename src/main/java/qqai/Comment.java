@@ -21,22 +21,32 @@ public class Comment {
      * @throws SQLException 删除失败
      */
     public static void delete(String sql, HashMap<String, Object> params) throws SQLException {
+        // idea建议
         StringBuilder sqlBuilder = new StringBuilder(sql);
+        // 拼接
         sqlBuilder.append(" where");
+        // key数组
         String[] arr = new String[params.size()];
         int index = 0;
+        // 拼接
         for (String s : params.keySet()) {
             sqlBuilder.append(" and ").append(s).append(" = ?");
             arr[index++] = s;
         }
+        // 替换
         sql = sqlBuilder.toString().replaceFirst("and", "");
+        // 打印sql
         System.out.println(sql);
+        // 获取预编译对象
         PreparedStatement preparedStatement = getConn().prepareStatement(sql);
+        // 设置参数
         for (int i = 0; i < arr.length; i++) {
             preparedStatement.setString(i + 1, params.get(arr[i]).toString());
         }
+        // 执行
         boolean b = preparedStatement.execute();
         if (b) {
+            // 失败
             throw new RuntimeException("delete error");
         }
     }
